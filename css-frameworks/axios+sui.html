@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" />
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div id="page-wrap">
+        <div id="prototype" style="padding: 40px;">
+            <h1>Prototype Card</h1>
+            <div class="ui card" id="0">
+                <div class="image">
+                    <img src="https://picsum.photos/200">
+                </div>
+                <div class="content">
+                    <a class="header">Kristy</a>
+                    <div class="description">
+                        Kristy is an art director living in New York.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="grid-gen" style="padding: 40px;">
+            <div id="grid" class="ui grid">
+                <h1>Generated Grid</h1>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+    <script>
+
+        var grid = $('#grid')
+
+        function genCardCol(oId, oName, oBody, oEmail) {
+            var final = '<div class="four wide column"> <div class="ui card" id="'
+            final += oId.toString()
+            final += '"> <div class="image"> <img src="https://picsum.photos/200"> </div> <div class="content"> <a class="header">'
+            final += oName
+            final += '<div class="description">'
+            final += oBody
+            final += '</div> </div> <div class="extra content"> <a>'
+            final += oEmail
+            final += '</a> </div> </div> </div> </div>'
+            console.log(final)
+            return final
+        }
+        axios.get('https://jsonplaceholder.typicode.com/comments')
+
+            .then(function (res) {
+                // list.append('<div class="ui grid">')
+                for (ii = 0; ii < res.data.length - 1; ii++) {
+                    var obj = res.data[ii]
+                    var card = genCardCol(obj.id, obj.name, obj.body, obj.email)
+                    grid.append(card)
+                }
+                // list.append('</div>')
+                // list.append('<div class="ui grid">')
+                // for (ii = 1; ii <= 125; ii++) {
+                //     // list.append('<div class="row">')
+                //     for (jj = 0; jj <= 3; jj++) {
+                //         var obj = res.data[(ii - 1) * 4 + jj]
+                //         var card = genCardCol(obj.id, obj.name, obj.body, obj.email)
+                //         list.append(card)
+                //     }
+                //     // list.append('</div>')
+                // list.append('</div>')
+                // for (ii = 0; ii < res.data.length; ii++) {
+                //     if (ii % 3 != 0) {
+                //         var obj = res.data[ii]
+                //         var card = genCard(obj.id, obj.name, obj.body, obj.email)
+                //         currentRow += card
+                //     }
+                //     else {
+                //         var currentRow = '<div class="row">'
+                //         list.append(currentRow)
+                //         currentRow = '<div class="row">'
+                //         list.append(currentRow)
+                //     }
+                // }
+
+            })
+    </script>
+</body>
+
+</html>

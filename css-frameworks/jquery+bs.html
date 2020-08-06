@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css"
+        integrity="sha384-VCmXjywReHh4PwowAiWNagnWcLhlEJLA5buUprzK8rxFgeH0kww/aWY76TfkUoSX" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <div id="page-wrap">
+        <div id="example">
+
+        </div>
+        <div id="html-ex">
+            <div class="card" style="width: 18rem;" id="item.id">
+                <div class="card-body">
+                    <h5 class="card-title">item.title</h5>
+                    <p class="card-text">item.body</p>
+                </div>
+            </div>
+        </div>
+        <div id="posts">
+
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"
+        integrity="sha384-XEerZL0cuoUbHE4nZReLT7nx9gQrQreJekYhJD9WNWhH8nEW+0c5qq7aIo2Wl30J"
+        crossorigin="anonymous"></script>
+    <script>
+        var divExample = $('#example')
+        var realTarget = $('#html-ex')
+        var text = 'Some title'
+        text = '<h1>' + text + '</h1>'
+        var list = '<ul>'
+        var listItems = ["Home", "News", "Project", "Account", "About"]
+        for (ii = 0; ii < listItems.length; ii++) {
+            listItems[ii] = '<li>' + listItems[ii] + '</li>'
+            list = list + listItems[ii]
+        }
+        list = list + '</ul>'
+        divExample.append(text)
+        realTarget.append(list)
+        var posts = $('#posts')
+
+        function postGen(pId, pTitle, pBody) {
+            var final = '<div id="html-ex"> <div class="card" style="width: 18rem;" id="'
+            final += pId.toString()
+            final += '"> <div class="card-body"> <h5 class="card-title">'
+            final += pTitle
+            final += '</h5> <p class="card-text">'
+            final += pBody
+            final += '</p> </div> </div> </div>'
+            return final
+        }
+
+        $.ajax({
+            url: "https://jsonplaceholder.typicode.com/posts",
+            success: function (res) {
+                for (ii = 0; ii < res.length; ii++) {
+                    var item = res[ii]
+                    var postElement = postGen(item.id, item.title, item.body)
+                    posts.append(postElement)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
